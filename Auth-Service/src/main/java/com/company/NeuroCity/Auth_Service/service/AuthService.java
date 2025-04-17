@@ -1,6 +1,13 @@
 package com.company.NeuroCity.Auth_Service.service;
 
+import com.company.NeuroCity.Auth_Service.dtos.AuthRequestDto;
+import com.company.NeuroCity.Auth_Service.dtos.UserDto;
+import com.company.NeuroCity.Auth_Service.entities.User;
+import com.company.NeuroCity.Auth_Service.enums.Role;
+import com.company.NeuroCity.Auth_Service.exceptions.BadRequestException;
+import com.company.NeuroCity.Auth_Service.exceptions.ResourceNotFoundException;
 import com.company.NeuroCity.Auth_Service.repository.UserRepository;
+import com.company.NeuroCity.Auth_Service.utils.PasswordUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
@@ -29,7 +36,7 @@ public class AuthService {
         if ("ADMIN123".equals(authRequestDto.getAdminCode())) {
             user.setRole(Role.ADMIN); // Allow setting ADMIN role
         } else if (authRequestDto.getRole() == null) {
-            user.setRole(Role.STUDENT); // Default to STUDENT
+            user.setRole(Role.INDIVIDUAL); // Default to STUDENT
         } else {
             user.setRole(authRequestDto.getRole());
         }
