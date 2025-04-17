@@ -19,7 +19,11 @@ spring:
               - PUT
               - DELETE
               - OPTIONS
-
+      routes:
+        - id: Auth-Service
+          uri: http://localhost:9010
+          predicates:
+            - Path=/auth/**
 
 
 
