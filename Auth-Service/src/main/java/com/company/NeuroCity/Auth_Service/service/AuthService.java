@@ -29,6 +29,8 @@ public class AuthService {
             throw new BadRequestException("User already exists, cannot signup again");
         }
 
+
+
         // Map request DTO to User entity
         User user = modelMapper.map(authRequestDto, User.class);
 
