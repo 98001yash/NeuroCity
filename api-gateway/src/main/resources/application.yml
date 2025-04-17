@@ -25,6 +25,11 @@ spring:
           predicates:
             - Path=/auth/**
 
+        - id: citizen-service
+          uri: http://localhost:9020
+          predicates:
+            - Path=/citizen/**
+
 
 
 
