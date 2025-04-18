@@ -34,4 +34,31 @@ public class CitizenService {
         return citizenRepository.findByAuthUserId(authUserId)
                 .map(citizen->modelMapper.map(citizen, CitizenDto.class));
     }
+
+
+    public Optional<CitizenDto> updateCitizen(Long id, CitizenDto dto) {
+        return citizenRepository.findById(id).map(existing -> {
+            existing.setFullName(dto.getFullName());
+            existing.setEmail(dto.getEmail());
+            existing.setPhoneNumber(dto.getPhoneNumber());
+            existing.setAddress(dto.getAddress());
+            existing.setCity(dto.getCity());
+            existing.setState(dto.getState());
+            existing.setPinCode(dto.getPinCode());
+            existing.setCountry(dto.getCountry());
+            existing.setLatitude(dto.getLatitude());
+            existing.setLongitude(dto.getLongitude());
+            existing.setRole(dto.getRole());
+            Citizen updated = citizenRepository.save(existing);
+            return modelMapper.map(updated, CitizenDto.class);
+        });
+    }
+
+    public boolean deactivateCitizen(Long id){
+        return citizenRepository.findById(id).map(citizen->{
+            citizen.setActive(false);
+            citizenRepository.save(citizen);
+            return true;
+        }).orElse(false);
+    }
 }
