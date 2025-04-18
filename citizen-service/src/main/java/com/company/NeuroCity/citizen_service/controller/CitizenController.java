@@ -7,8 +7,10 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
-@RequestMapping("/citizens")
+@RequestMapping("/citizen")
 @RequiredArgsConstructor
 public class CitizenController {
 
@@ -28,11 +30,14 @@ public class CitizenController {
     }
 
     @GetMapping("/auth-user/{authUserId}")
-    public ResponseEntity<CitizenDto> getByAuthUserId(@PathVariable Long authUserId){
-        return citizenService.getByAuthUserId(authUserId)
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
+    public ResponseEntity<List<CitizenDto>> getAllByAuthUserId(@PathVariable Long authUserId) {
+        List<CitizenDto> citizens = citizenService.getByAuthUserId(authUserId);
+        if (citizens.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(citizens);
     }
+
 
     @PutMapping("/{id}")
     public ResponseEntity<CitizenDto> updateCitizen(@PathVariable Long id, @RequestBody CitizenDto dto){

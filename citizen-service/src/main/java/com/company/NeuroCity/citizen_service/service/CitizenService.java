@@ -8,7 +8,9 @@ import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -30,10 +32,12 @@ public class CitizenService {
                 .map(citizen->modelMapper.map(citizen, CitizenDto.class));
     }
 
-    public Optional<CitizenDto> getByAuthUserId(Long authUserId){
-        return citizenRepository.findByAuthUserId(authUserId)
-                .map(citizen->modelMapper.map(citizen, CitizenDto.class));
+    public List<CitizenDto> getByAuthUserId(Long authUserId) {
+        return citizenRepository.findByAuthUserId(authUserId).stream()
+                .map(citizen -> modelMapper.map(citizen, CitizenDto.class))
+                .collect(Collectors.toList());
     }
+
 
 
     public Optional<CitizenDto> updateCitizen(Long id, CitizenDto dto) {
