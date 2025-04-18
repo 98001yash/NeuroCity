@@ -29,4 +29,9 @@ public class CitizenService {
         return citizenRepository.findById(id)
                 .map(citizen->modelMapper.map(citizen, CitizenDto.class));
     }
+
+    public Optional<CitizenDto> getByAuthUserId(Long authUserId){
+        return citizenRepository.findByAuthUserId(authUserId)
+                .map(citizen->modelMapper.map(citizen, CitizenDto.class));
+    }
 }
