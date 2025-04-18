@@ -26,4 +26,11 @@ public class CitizenController {
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
+
+    @GetMapping("/auth-user/{authUserId}")
+    public ResponseEntity<CitizenDto> getByAuthUserId(@PathVariable Long authUserId){
+        return citizenService.getByAuthUserId(authUserId)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
+    }
 }
