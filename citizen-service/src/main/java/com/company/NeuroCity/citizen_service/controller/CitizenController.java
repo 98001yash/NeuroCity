@@ -33,4 +33,17 @@ public class CitizenController {
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<CitizenDto> updateCitizen(@PathVariable Long id, @RequestBody CitizenDto dto){
+        return citizenService.updateCitizen(id, dto)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deactivateCitizen(@PathVariable Long id){
+        boolean result = citizenService.deactivateCitizen(id);
+        return result ? ResponseEntity.ok().build() : ResponseEntity.notFound().build();
+    }
 }
