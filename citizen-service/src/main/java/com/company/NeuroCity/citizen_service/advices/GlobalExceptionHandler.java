@@ -1,6 +1,8 @@
 package com.company.NeuroCity.citizen_service.advices;
 
 
+import com.company.NeuroCity.citizen_service.exceptions.ResourceNotFoundException;
+import com.company.NeuroCity.citizen_service.exceptions.RuntimeConflictException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
