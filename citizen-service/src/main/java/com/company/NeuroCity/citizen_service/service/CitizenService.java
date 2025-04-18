@@ -8,6 +8,8 @@ import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 @RequiredArgsConstructor
 public class CitizenService {
@@ -21,5 +23,10 @@ public class CitizenService {
         citizen.setActive(true);
         Citizen saved = citizenRepository.save(citizen);
         return modelMapper.map(saved, CitizenDto.class);
+    }
+
+    public Optional<CitizenDto> getById(Long id){
+        return citizenRepository.findById(id)
+                .map(citizen->modelMapper.map(citizen, CitizenDto.class));
     }
 }
