@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -38,11 +39,11 @@ public class AlertServiceImpl implements AlertService {
 
 
     @Override
-    public List<AlertResponse> getAlertById() {
-        return alertRepository.findAll().stream()
-                .map(alert -> modelMapper.map(alert, AlertResponse.class))
-                .collect(Collectors.toList());
+    public Optional<AlertResponse> getAlertById(Long id) {
+        return alertRepository.findById(id)
+                .map(alert -> modelMapper.map(alert, AlertResponse.class));
     }
+
 
     @Override
     public List<AlertResponse> getAlertByType(String type) {
